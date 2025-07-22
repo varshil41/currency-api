@@ -57,7 +57,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: swagger-spec
-          path: swagger.yaml
+          path: docs/swagger.yaml
 
   deploy:
     name: Docker Deploy
