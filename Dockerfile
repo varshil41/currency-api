@@ -14,12 +14,14 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# ✅ Add this line to make npm work
-COPY --from=builder /app/package*.json ./
+# Copy package.json to allow npm commands in runtime
+COPY package*.json ./
 
+# Copy built output and installed deps
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 
 EXPOSE 3000
 
+# ✅ Make sure dev script exists (or change it to `node dist/index.js`)
 CMD ["npm", "run", "dev"]
