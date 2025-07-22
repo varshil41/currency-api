@@ -1,0 +1,63 @@
+openapi: 3.0.3
+info:
+  title: Currency Conversion API
+  description: API to convert currency between two units using custom logic or exchange rates.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+    description: Local server
+
+tags:
+  - name: Currency
+paths:
+  /api/convert:
+    get:
+      tags:
+        - Currency
+      summary: Convert currency amount
+      description: Converts a given amount from one currency to another using pre-defined or API-driven exchange rates.
+      parameters:
+        - name: from
+          in: query
+          required: true
+          schema:
+            type: string
+            example: USD
+        - name: to
+          in: query
+          required: true
+          schema:
+            type: string
+            example: INR
+        - name: amount
+          in: query
+          required: true
+          schema:
+            type: number
+            example: 100
+      responses:
+        "200":
+          description: Successful currency conversion
+          content:
+            application/json:
+              example:
+                from: USD
+                to: INR
+                rate: 83.0
+                convertedAmount: 8300.0
+        "400":
+          description: Bad request due to invalid parameters
+          content:
+            application/json:
+              example:
+                message: Validation error
+                errors:
+                  - path: from
+                    message: Invalid currency code
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              example:
+                message: Internal Server Error
