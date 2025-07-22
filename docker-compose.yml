@@ -2,26 +2,22 @@ version: "3.9"
 
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: varshil44/currency-api:latest
     container_name: currency-api
     ports:
-      - "3000:3000"
-    env_file:
-      - .env
+      - "${PORT}:3000"
+    environment:
+      - PORT=${PORT}
+      - REDIS_URL=${REDIS_URL}
     depends_on:
       - redis
-    volumes:
-      - .:/app
-      - /app/node_modules
     restart: unless-stopped
 
   redis:
     image: redis:7-alpine
     container_name: redis
     ports:
-      - "6379:6379"
+      - "6380:6379"
     volumes:
       - redis-data:/data
     restart: unless-stopped
