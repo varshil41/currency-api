@@ -11,15 +11,14 @@ RUN npm run build
 
 # Stage 2: Run
 FROM node:20-alpine
-
 WORKDIR /app
 
 # Copy package.json to allow npm commands in runtime
 COPY package*.json ./
-
 # Copy built output and installed deps
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
+COPY docs ./docs
 
 EXPOSE 3000
 
