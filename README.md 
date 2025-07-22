@@ -1,0 +1,33 @@
+Clone and Install
+
+- git clone https://github.com/varshil41/currency-api.git
+- cd currency-api
+- npm install
+
+2. Create .env File
+- PORT=3000
+- REDIS_URL=redis://localhost:6379
+
+3. Start with Docker Compose
+- docker-compose up --build
+
+API Access
+- Convert Endpoint: GET /api/convert
+- Query params: from, to, amount
+- Example: /api/convert?from=USD&to=INR&amount=100
+
+- Swagger Docs: http://localhost:3000/docs
+
+Caching Overview
+- Redis is used to cache currency exchange rates.
+- TTL: 1 minute
+- On cache miss, fetches rate again and stores it in cache.
+
+CI/CD Pipeline
+- GitHub Actions trigger on main branch push.
+- Steps:
+1. Install dependencies
+2. Run TypeScript checks
+3. Build the project
+4. Upload Swagger spec
+5. Build and push Docker image to Docker Hub
